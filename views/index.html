@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Image Processing Api</title>
+        <style>
+            * {
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family: sans-serif;
+                margin: 25px;
+                color: #222;
+                background-color: #f5f5f5;
+                text-align: center;
+            }
+
+            h1 {
+                font-weight: bold;
+                margin-bottom: 25px;
+                padding: 15px;
+                color: white;
+                background-color: #0d3806;
+                display: inline-block;
+                width: 100%;
+                max-width: 500px;
+                border-radius: 5px;
+            }
+
+            p {
+                max-width: 900px;
+            }
+
+            form {
+                text-align: left;
+                margin-bottom: 25px;
+                padding: 15px;
+                color: rgb(195, 206, 195);
+                background-color: #0d3806;
+                display: inline-block;
+                width: 100%;
+                max-width: 500px;
+                border-radius: 5px;
+            }
+
+            input[type="submit"] {
+                font-size: 16px;
+                border-radius: 3px;
+                background-color: #e4f1fe;
+                border: 1px solid grey;
+                box-shadow: 2px 2px #999;
+                cursor: pointer;
+            }
+
+            input[type="submit"]:hover {
+                background-color: #fffec4;
+            }
+        </style>
+    </head>
+    <body onload="fullPath()">
+        <h1>بسم الله الرحمن الرحيم</h1>
+        <form id="main-form" method="post" autocomplete="off">
+            <p><b>1:</b>Choose an image</p>
+            <label>
+                Image:
+                <select id="img-select">
+                    <option value="fjord.jpg">fjord.jpg</option>
+                    <option value="encenadaport.jpg" selected>encenadaport.jpg</option>
+                    <option value="icelandwaterfall.jpg">icelandwaterfall.jpg</option>
+                </select>
+            </label>
+            <p><b>2:</b>Input the Dimensions</p>
+            <label>
+                Width:<input
+                    type="text"
+                    id="img-width"
+                    autofill="false"
+                    value="500"
+                    placeholder="Image width"
+                />
+            </label>
+            <label>
+                Height:<input
+                    type="text"
+                    id="img-height"
+                    autofill="false"
+                    value="500"
+                    placeholder="Image height"
+                />
+            </label>
+            <p><b>3:Optional </b>Change the image's format</p>
+            <label>
+                Format:<select id="format-select">
+                    <option value="png">png</option>
+                    <option value="jpg" selected>jpg</option>
+                    <option value="jpeg">jpeg</option>
+                </select>
+            </label>
+
+            <p id="full-params"></p>
+            <input type="submit" id="submit-button" value="submit" />
+        </form>
+        <script>
+            let mainForm = document.getElementById("main-form");
+            let imgSelect = document.getElementById("img-select");
+            let selectedImg = imgSelect.options[imgSelect.selectedIndex].value;
+            let imgWidth = document.getElementById("img-width");
+            let imgHeight = document.getElementById("img-height");
+            let fSelect = document.getElementById("format-select");
+            let fullParams = document.getElementById("full-params");
+            ["keyup"].forEach((evt) => {
+                imgHeight.addEventListener(evt, () => {
+                    fullPath();
+                });
+            });
+            ["keyup"].forEach((evt) => {
+                imgWidth.addEventListener(evt, () => {
+                    fullPath();
+                });
+            });
+            ["click", "change"].forEach((evt) => {
+                imgSelect.addEventListener(evt, () => {
+                    fullPath();
+                });
+            });
+            ["click", "change"].forEach((evt) => {
+                fSelect.addEventListener(evt, () => {
+                    fullPath();
+                });
+            });
+            function fullPath() {
+                let selectedImg = imgSelect.options[imgSelect.selectedIndex].value;
+                let imgWidth = document.getElementById("img-width");
+                let imgHeight = document.getElementById("img-height");
+                let sf = fSelect.options[fSelect.selectedIndex].value;
+
+                fullParams.innerHTML =
+                    "img=" +
+                    selectedImg +
+                    "&width=" +
+                    imgWidth.value +
+                    "&height=" +
+                    imgHeight.value +
+                    "&format=" +
+                    sf;
+            }
+
+            mainForm.addEventListener("submit", () => {
+                const fAction = `/images?${fullParams.innerText}`;
+                mainForm.action = fAction;
+                mainForm.submit();
+            });
+        </script>
+    </body>
+</html>
