@@ -1,5 +1,6 @@
 import express from "express";
 import fs from "fs";
+import path from "path";
 export const checkInputs = (req: express.Request, res: express.Response, next: Function): void => {
     console.log(`Checking The Inputs`);
     const dir: string = process.cwd();
@@ -66,7 +67,11 @@ export const checkInputs = (req: express.Request, res: express.Response, next: F
     }
 
     if (!fs.existsSync(dir + "/images/thumbnail")) {
-        fs.mkdir(dir + "/images/thumbnail", () => {});
+        fs.mkdir(path.join(dir, "/images/thumbnail"), (err) => {
+            if (err) {
+                return console.error(err);
+            }
+        });
     }
     next();
 };
