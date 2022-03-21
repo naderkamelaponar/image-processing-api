@@ -56,9 +56,9 @@ node ./build/.
 
 ## Endpoint
 
-#### => [http://localhost:3000/](http://localhost:3000/)
+#### => http://localhost:3000/
 
-#### => [http://localhost:3000/images?img=encenadaport.jpg&width=500&height=500&format=jpg](http://localhost:3000/images?img=encenadaport.jpg&width=500&height=500&format=jpg)
+#### => http://localhost:3000/images?img=encenadaport.jpg&width=500&height=500&format=jpg
 
 ## Input Rules
 
@@ -72,7 +72,7 @@ node ./build/.
 
 ### 2. **_Width_**
 
-#### http://localhost:3000/images?img=[***image***]&width=
+#### http://localhost:3000/images?img=encenadaport.jpg&width=
 
 ##### Input the Width
 
@@ -80,21 +80,19 @@ node ./build/.
 
 ### 3. **_Height_**
 
-#### http://localhost:3000/images?img=[***image***]&width=[***width***]&height=
-
+#### http://localhost:3000/images?img=encenadaport.jpg&width=500&height=
 ##### Input the Height
-
 ##### Height should not be less than 50px or more than 1000px
 
 ### 4. Optional **_Format_**
 
-#### http://localhost:3000/images?img=[***image***]&width=[***width***]&height=[***height***]
+#### http://localhost:3000/images?img=encenadaport.jpg&width=500&height=500
 
 ##### Leave it blank
 
 ##### Or
 
-http://localhost:3000/images?img=[***image***]&width=[***width***]&height=[***height***]&**format=[\***format**\*]**
+#### http://localhost:3000/images?img=encenadaport.jpg&width=500&height=500&format=jpg
 
 ##### Supported Formats ( jpg | png | jpeg)
 
