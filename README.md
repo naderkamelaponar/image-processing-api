@@ -40,8 +40,6 @@ npm run format-code
 npm run test
 ```
 
-##### Check the esLint standards .
-
 ## Run the API
 
 ##### Check the Prettier Format .
@@ -55,6 +53,52 @@ npm run start
 ```bash
 node ./build/.
 ```
+
+## Endpoint
+
+#### => [http://localhost:3000/](http://localhost:3000/)
+
+#### => [http://localhost:3000/images?img=encenadaport.jpg&width=500&height=500&format=jpg](http://localhost:3000/images?img=encenadaport.jpg&width=500&height=500&format=jpg)
+
+## Input Rules
+
+### 1. **_Image_**
+
+### http://localhost:3000/images?img=
+
+##### Input the Image Name
+
+##### Image should be exists
+
+### 2. **_Width_**
+
+#### http://localhost:3000/images?img=[***image***]&width=
+
+##### Input the Width
+
+##### Width should not be less than 50px or more than 1000px
+
+### 3. **_Height_**
+
+#### http://localhost:3000/images?img=[***image***]&width=[***width***]&height=
+
+##### Input the Height
+
+##### Height should not be less than 50px or more than 1000px
+
+### 4. Optional **_Format_**
+
+#### http://localhost:3000/images?img=[***image***]&width=[***width***]&height=[***height***]
+
+##### Leave it blank
+
+##### Or
+
+http://localhost:3000/images?img=[***image***]&width=[***width***]&height=[***height***]&**format=[\***format**\*]**
+
+##### Supported Formats ( jpg | png | jpeg)
+
+###### **jpg** is the **Default**
 
 ## Contributing
 

@@ -1,7 +1,7 @@
 // بسم الله الرحمن الرحيم
+//checked
 import express, {Application} from "express";
 import routers from "./routers/index";
-
 const app: Application = express();
 const port: number | null = 3000;
 app.use("/", routers);
@@ -9,7 +9,7 @@ let markUp: string = `<form style="text-align:center;"  action="/">`;
 markUp += `<p >Are You Lost ?</p>
 <input type="submit"  value="Go to Home" />
 </form>`;
-app.use((req, res, next) => {
+app.use((req: express.Request, res: express.Response, next: Function): void => {
     res.status(404).send(markUp);
     next();
 });

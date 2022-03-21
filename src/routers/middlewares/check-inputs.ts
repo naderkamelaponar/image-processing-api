@@ -1,8 +1,11 @@
 import express from "express";
 import fs from "fs";
 import path from "path";
-export const checkInputs = (req: express.Request, res: express.Response, next: Function): void => {
-    console.log(`Checking The Inputs`);
+export const checkInputs = async (
+    req: express.Request,
+    res: express.Response,
+    next: Function
+): Promise<void | unknown> => {
     const dir: string = process.cwd();
     const {img, width, height, format} = req.query;
     const imgWidth: number | null = width ? parseInt(width as string, 10) : null;
@@ -11,43 +14,36 @@ export const checkInputs = (req: express.Request, res: express.Response, next: F
     const imgFormat: string | null = format ? (format as string) : null;
 
     if (imgName == null || imgName === "") {
-        res.send({Error: "Input the Image Name"});
-        return;
+        return res.send({Error: "Input the Image Name"});
     } else {
         if (imgName && !fs.existsSync(dir + "/images/" + imgName)) {
-            res.send({Error: "Original Image not found"});
-            return;
+            return res.send({Error: "Original Image not found"});
         }
     }
 
     if (imgWidth) {
         if (imgWidth < 50 || imgWidth > 1000) {
-            res.send({
+            return res.send({
                 Error: "Image width should not be less than 50px or more than 1000px",
             });
-            return;
         }
     } else {
-        res.send({Error: "Input the image width"});
-        return;
+        return res.send({Error: "Input the image width"});
     }
     if (imgHeight) {
         if (imgHeight < 50 || imgHeight > 1000) {
-            res.send({
+            return res.send({
                 Error: "Image height should not be less than 50px or more than 1000px",
             });
-            return;
         }
     } else {
-        res.send({Error: "Input the image height"});
-        return;
+        return res.send({Error: "Input the image height"});
     }
     if (imgFormat) {
         if (!/[jpg]|[png]|[jpeg]/.test(imgFormat as string)) {
-            res.send({
+            return res.send({
                 Error: "Leave the Format empty or enter a proper format",
             });
-            return;
         } else {
             const fullName: string =
                 dir +
@@ -60,7 +56,6 @@ export const checkInputs = (req: express.Request, res: express.Response, next: F
                 "." +
                 imgFormat;
             if (fs.existsSync(fullName)) {
-                console.log("Image is already processed");
                 return res.sendFile(fullName);
             }
         }
@@ -69,9 +64,10 @@ export const checkInputs = (req: express.Request, res: express.Response, next: F
     if (!fs.existsSync(dir + "/images/thumbnail")) {
         fs.mkdir(path.join(dir, "/images/thumbnail"), (err) => {
             if (err) {
-                return console.error(err);
+                return res.redirect("/FatalError");
             }
         });
     }
     next();
 };
+//checked
