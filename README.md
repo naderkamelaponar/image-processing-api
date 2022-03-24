@@ -42,7 +42,7 @@ npm run test
 
 ## Run the API
 
-##### Check the Prettier Format .
+##### Start the Application .
 
 ```bash
 npm run start
